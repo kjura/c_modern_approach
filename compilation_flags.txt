@@ -1,2 +1,1 @@
-gcc -O -Wall -W -pedantic -ansi -std=c99 -o <Program name after compilation> <program . c>
 gcc -O -Wall -W -pedantic -ansi -std=c99 -o
