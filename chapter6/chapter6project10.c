@@ -9,49 +9,36 @@ int main(void)
 {    
 
 
-	int first_month, first_day, first_year;
+	int previous_month, previous_day, previous_year;
 	printf("Enter a date (mm/dd/yy): ");
-	scanf("%d/%d/%d", &first_month, &first_day, &first_year);
+	scanf("%d/%d/%d", &previous_month, &previous_day, &previous_year);
 
-	if (first_month == 0 && first_day == 0 && first_year == 0)
+	if (previous_month == 0 && previous_day == 0 && previous_year == 0)
 	{
 		printf("No earliest date (input was 0/0/0 in the first row). Terminating ...");
 		return 0;
 	}
 
-	int month, day, year;
-	int earlier_month, earlier_day, earlier_year;
+	int next_month, next_day, next_year;
 
+	int earliest_month, earliest_day, earliest_year;
 
 	do
 	{
 		printf("Enter a date (mm/dd/yy): ");
-		scanf("%d/%d/%d", &month, &day, &year);
+		scanf("%d/%d/%d", &next_month, &next_day, &next_year);
 
-		if (year < first_year)
+		if (next_year < previous_year)
 		{
-			earlier_month = month;
-			earlier_day = day;
-			earlier_year = year;
+			earliest_year = next_year;
+			earliest_month = next_month;
+			earliest_day = next_day;
 		}
 
-		if (month < first_month)
-		{
-			earlier_month = month;
-			earlier_day = day;
-			earlier_year = year;
-		}
-
-		if (day < first_day)
-		{
-			earlier_month = month;
-			earlier_day = day;
-			earlier_year = year;
-		}
 
 
 	} 
-	while (month != 0 && day != 0 && year != 0);
+	while (next_month != 0 && next_day != 0 && next_year != 0);
 
 
 	printf("%d/%d/%.2d is the earliest date\n", earlier_month, earlier_day, earlier_year);
