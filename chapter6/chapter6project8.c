@@ -3,7 +3,7 @@
 
 
 // Chapter 6 Project 8
-
+// gcc -O -Wall -W -pedantic -ansi -std=c99 -o chapter6project8 chapter6project8.c
 
 int main(void)
 {    
@@ -42,18 +42,20 @@ int main(void)
 		return 0;
 	}
 	
-	// 1 = Sunday; 2 = Monday; 3 = Tuesday; 4 = Wednesday; 5 = Thursday; 6 = Friday, 7 = Saturday
+	
 
 	int last_day = 9 - start_day;
-	int first_row_spaces = start_day - 1;
 
-	for (int i = 1 - first_row_spaces; i <= n_month; ++i)
+	for(int j = 1; j <= start_day - 1; ++j)
 	{
-		if (i < 1)
-		{
-			printf(" ");
-			continue;
-		}
+		printf("   ");
+	}
+    
+	// 1 = Sunday; 2 = Monday; 3 = Tuesday; 4 = Wednesday; 5 = Thursday; 6 = Friday, 7 = Saturday
+	// 20 spaces total in a row
+
+	for (int i = 1; i <= n_month; ++i)
+	{
 
 		if (i == last_day)
 		{
@@ -61,9 +63,14 @@ int main(void)
 			last_day += 7;
 		}
 
-		printf("%d ", i);
+		printf("%2d ", i);
 	
 	}
 	
+	
+	printf("\n");
 	return 0;
+
 }
+
+
