@@ -1,0 +1,11 @@
+Exercise 3 Chapter 7
+
+
+
+Which of the following are not legal types in C?
+
+
+(a) short unsigned int -> legal type in C
+(b) short float -> NOT legal
+(c) long double -> Extended-precision floating-point -> legal type in C
+(d) unsigned long -> NOT legal
