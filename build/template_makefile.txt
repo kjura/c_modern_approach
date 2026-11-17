@@ -1,0 +1,9 @@
+build :
+	gcc -O -Wall -Werror -W -pedantic -ansi -std=c17 -o {EXERCISE} {EXERCISE}.c
+
+run :
+	gcc -O -Wall -Werror -W -pedantic -ansi -std=c17 -o {EXERCISE} {EXERCISE}.c
+	./{FOLDER_NAME}
+
+clean : 
+	rm {FOLDER_NAME}
