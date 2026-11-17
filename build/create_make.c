@@ -4,8 +4,10 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <stdbool.h>
-    
-    
+#include <string.h> 
+
+
+
 void lower_ch(char* s) {
     
    for (int i = 0; s[i] != '\0'; i++){
@@ -27,9 +29,50 @@ bool check_arg_double_hyphen(const char* s){
 
     return false;
 
-
 }
 
+
+bool check_arg_pattern(const char* s){
+
+    
+    if (s == NULL){
+        return false;
+    }
+
+
+    int s_count = strlen(s);
+
+
+    // check if 'chapter' or 'project' is in an arg 
+    const char* chap = "--chapter_";
+    const char* proj = "--project_";    
+
+    const char* maybe_pattern_chap_substr = strstr(s, chap); 
+    const char* maybe_pattern_proj_substr = strstr(s, proj); 
+ 
+    if (maybe_pattern_chap_substr != NULL || maybe_pattern_proj_substr != NULL) {
+        
+        for (int i = 11; i < s_count; ++i){
+            
+            if (!isdigit(s[i])){
+
+                printf("Wrong char encountered: %c\n", s[i]);
+                return false;
+            }
+
+        }
+
+        return true;
+
+    }
+
+    else {
+
+        return false;
+
+    }
+
+}
 
 
 int main(int argc, char **argv){
@@ -66,7 +109,18 @@ int main(int argc, char **argv){
         
     }
 
-    printf("OK: All good! %s %s\n", chapter, project); 
+
+    if (check_arg_pattern(chapter) && check_arg_pattern(project)){
+
+        printf("OK: All good! %s %s\n", chapter, project); 
+
+    }
+
+    else {
+        printf("ERROR: Wrong args format\n");
+    }
+
+
     
 
 
