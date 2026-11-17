@@ -11,68 +11,11 @@
 void lower_ch(char* s) {
     
    for (int i = 0; s[i] != '\0'; i++){
-        s[i] = tolower(s[i]);
+        s[i] = (char) tolower(s[i]);
    } 
 
 }
 
-bool check_arg_double_hyphen(const char* s){
-    if (s[0] == '\0'){
-        return false;
-    }
-
-    if (s[0] == '-' && s[1] == '-'){
-
-        return true;
-
-    }
-
-    return false;
-
-}
-
-
-bool check_arg_pattern(const char* s){
-
-    
-    if (s == NULL){
-        return false;
-    }
-
-
-    int s_count = strlen(s);
-
-
-    // check if 'chapter' or 'project' is in an arg 
-    const char* chap = "--chapter_";
-    const char* proj = "--project_";    
-
-    const char* maybe_pattern_chap_substr = strstr(s, chap); 
-    const char* maybe_pattern_proj_substr = strstr(s, proj); 
- 
-    if (maybe_pattern_chap_substr != NULL || maybe_pattern_proj_substr != NULL) {
-        
-        for (int i = 11; i < s_count; ++i){
-            
-            if (!isdigit(s[i])){
-
-                printf("Wrong char encountered: %c\n", s[i]);
-                return false;
-            }
-
-        }
-
-        return true;
-
-    }
-
-    else {
-
-        return false;
-
-    }
-
-}
 
 
 int main(int argc, char **argv){
@@ -96,33 +39,64 @@ int main(int argc, char **argv){
     char* project = argv[2];
     lower_ch(chapter); lower_ch(project); 
 
-    if(check_arg_double_hyphen(chapter) && check_arg_double_hyphen(project)) {
 
-        printf("OK: Parsing ok!\n");
+    const char* maybe_strstr_chapter = strstr(chapter, "--chapter_");
+    const char* maybe_strstr_project = strstr(project, "--project_");
+
+    
+    if (maybe_strstr_chapter != NULL) {
+        
+       for (size_t i = 11; i < strlen(chapter); ++i){
+           if (!isdigit(chapter[i])){
+               printf("Wrong args\n");
+               return -1;
+            }
+       }
+
+       printf("All good for %s\n", chapter);
 
     }
 
     else {
 
-        printf("ERROR: Wrong args format\n");
+        printf("Wrong args\n");
+        return -1;
+        
+    }
+    
+
+
+    if (maybe_strstr_project != NULL) {
+        
+       for (size_t i = 11; i < strlen(project); ++i){
+           if (!isdigit(project[i])){
+               printf("Wrong args\n");
+               return -1;
+            }
+       }
+
+       printf("All good for %s\n", project);
+
+    }
+
+    else {
+
+        printf("Wrong args\n");
         return -1;
         
     }
 
-
-    if (check_arg_pattern(chapter) && check_arg_pattern(project)){
-
-        printf("OK: All good! %s %s\n", chapter, project); 
-
-    }
-
-    else {
-        printf("ERROR: Wrong args format\n");
-    }
-
-
-    
-
+    // if (!strcmp("--chapter_", chapter)) {
+    //
+    //     printf("%s is equal to --chapter_\n", chapter);
+    //
+    // } 
+    //
+    // if (!strcmp("--project_", project)) {
+    //
+    //     printf("%s is equal to --chapter_\n", project);
+    //
+    // } 
 
     // char* program_name = "create_make.c";
     // char* symlinkpath = "build";
