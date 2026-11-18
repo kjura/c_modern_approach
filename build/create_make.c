@@ -43,6 +43,32 @@ int main(int argc, char **argv){
     const char* maybe_strstr_chapter = strstr(chapter, "--chapter_");
     const char* maybe_strstr_project = strstr(project, "--project_");
 
+    if (maybe_strstr_chapter == NULL){
+        printf("No --chapter_ substr found\n");
+        return -1;
+    }
+    
+    if (maybe_strstr_project == NULL){
+        printf("No --project_ substr found\n");
+        return -1;
+    }
+
+
+    
+    if (!strcmp("--chapter_", maybe_strstr_chapter)){
+        
+        printf("--chapter_ == maybe_strstr_chapter\n");
+        return -1;
+    }
+
+
+
+    if (!strcmp("--project_", maybe_strstr_project)){
+        
+        printf("--project_ == maybe_strstr_project\n");
+        return -1;
+    }
+
     
     if (maybe_strstr_chapter != NULL) {
         
