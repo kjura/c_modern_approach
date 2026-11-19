@@ -1,3 +1,4 @@
+#include <stddef.h>
 #include <unistd.h>
 #include <stdio.h>
 #include <linux/limits.h>
@@ -16,7 +17,7 @@ void lower_ch(char* s) {
 
 }
 
-
+// /home/jakub/Coding/c-projects/c_modern_approach/build
 
 int main(int argc, char **argv){
 
@@ -112,20 +113,66 @@ int main(int argc, char **argv){
         
     }
 
-    // if (!strcmp("--chapter_", chapter)) {
-    //
-    //     printf("%s is equal to --chapter_\n", chapter);
-    //
-    // } 
-    //
-    // if (!strcmp("--project_", project)) {
-    //
-    //     printf("%s is equal to --chapter_\n", project);
-    //
-    // } 
 
-    // char* program_name = "create_make.c";
-    // char* symlinkpath = "build";
+
+    // 1. Check if the chapter/project_12 exists -> YES = NOOP, NO = CREATE
+    //      1.a Check if Chapter exists
+    //      1.b Check if Project exists
+    // 2. CREATE PROJECT
+
+
+    // [...]/build/create_make.c
+
+
+    char cwd[PATH_MAX];
+    if (getcwd(cwd, sizeof(cwd)) != NULL) {
+        printf("OK: Current working dir: %s\n", cwd);
+    } else {
+        perror("ERROR: getcwd() error");
+        return 1;
+    }
+        
+    // Linux only probably?
+    const char* correct_project_path_tail = "/c_modern_approach";
+    size_t slash_index = 0;
+    unsigned short slash_existence = 0;
+    for (size_t i = strlen(cwd) - 1; i > 0; --i){
+        
+        if (cwd[i] == '/'){
+            slash_existence = 1;
+            slash_index = i;
+            break;
+        }
+
+    }
+
+    if (!slash_existence){
+        
+        printf("Could not find '/' character in the path tail\n");
+        return -1;
+    }
+
+    else {
+
+        const char* c_cwd = &cwd[slash_index];
+        while (*c_cwd  != '\0' && *correct_project_path_tail != '\0') {
+            if (*c_cwd != *correct_project_path_tail){
+    
+                printf("ERROR: create_make.c must be run from the project directory e.g ~.../c_modern_approach\n");
+                return -1;
+    
+            }
+            ++c_cwd; ++correct_project_path_tail;
+        }
+
+    }
+
+    // char dst[strlen(correct_project_path_tail) + 1]; // + 1 for the null term
+    // const char* maybe_correct_project_path = strcpy(, correct_project_path_tail);
+    
+
+
+    // char* symlinkpath = "/build/";
     // char actualpath[PATH_MAX];
     // char* ptr;
     // ptr = realpath(symlinkpath, actualpath);
