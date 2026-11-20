@@ -129,7 +129,7 @@ int main(int argc, char **argv){
         printf("OK: Current working dir: %s\n", cwd);
     } else {
         perror("ERROR: getcwd() error");
-        return 1;
+        return -1;
     }
         
     // Linux only probably?
@@ -166,6 +166,8 @@ int main(int argc, char **argv){
         }
 
     }
+
+
 
     // char dst[strlen(correct_project_path_tail) + 1]; // + 1 for the null term
     // const char* maybe_correct_project_path = strcpy(, correct_project_path_tail);
